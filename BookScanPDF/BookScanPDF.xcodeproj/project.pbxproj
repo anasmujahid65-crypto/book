@@ -1,0 +1,589 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B1001 /* BookScanPDFApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1001 /* BookScanPDFApp.swift */; };
+		B1002 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1002 /* AppDelegate.swift */; };
+		B1003 /* BookScanModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1003 /* BookScanModel.swift */; };
+		B1004 /* ProjectEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1004 /* ProjectEntity+CoreDataClass.swift */; };
+		B1005 /* PageEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1005 /* PageEntity+CoreDataClass.swift */; };
+		B1006 /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1006 /* DataController.swift */; };
+		B1007 /* Enums.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1007 /* Enums.swift */; };
+		B1008 /* PageEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1008 /* PageEdit.swift */; };
+		B1009 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1009 /* Project.swift */; };
+		B1010 /* Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1010 /* Page.swift */; };
+		B1011 /* DiskStorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1011 /* DiskStorageManager.swift */; };
+		B1012 /* ImageDownsampler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1012 /* ImageDownsampler.swift */; };
+		B1013 /* AppSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1013 /* AppSettings.swift */; };
+		B1014 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1014 /* Theme.swift */; };
+		B1015 /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1015 /* PrimaryButton.swift */; };
+		B1016 /* StatusBadge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1016 /* StatusBadge.swift */; };
+		B1017 /* EmptyStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1017 /* EmptyStateView.swift */; };
+		B1018 /* ShimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1018 /* ShimmerView.swift */; };
+		B1019 /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1019 /* HomeViewModel.swift */; };
+		B1020 /* ProjectCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1020 /* ProjectCardView.swift */; };
+		B1021 /* NewScanActionSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1021 /* NewScanActionSheet.swift */; };
+		B1022 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1022 /* HomeView.swift */; };
+		B1023 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1023 /* OnboardingView.swift */; };
+		B1024 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1024 /* SettingsView.swift */; };
+		B1025 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1025 /* Assets.xcassets */; };
+		B1026 /* MotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1027 /* MotionManager.swift */; };
+		B1027 /* PageDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1028 /* PageDetector.swift */; };
+		B1028 /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1029 /* CameraManager.swift */; };
+		B1029 /* CameraPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1030 /* CameraPreviewView.swift */; };
+		B1030 /* CameraOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1031 /* CameraOverlayView.swift */; };
+		B1031 /* CameraViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1032 /* CameraViewModel.swift */; };
+		B1032 /* CameraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1033 /* CameraView.swift */; };
+		B1033 /* CIContextHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1034 /* CIContextHolder.swift */; };
+		B1034 /* FilterEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1035 /* FilterEngine.swift */; };
+		B1035 /* ProcessingOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1036 /* ProcessingOperation.swift */; };
+		B1036 /* ProcessingQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1037 /* ProcessingQueue.swift */; };
+		B1037 /* AutoApplyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1038 /* AutoApplyManager.swift */; };
+		B1038 /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1039 /* ReviewViewModel.swift */; };
+		B1039 /* PageThumbnailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1040 /* PageThumbnailCell.swift */; };
+		B1040 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1041 /* ReviewView.swift */; };
+		B1041 /* CropLoupeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1042 /* CropLoupeView.swift */; };
+		B1042 /* InteractiveCropOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1043 /* InteractiveCropOverlay.swift */; };
+		B1043 /* PageEditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1044 /* PageEditorViewModel.swift */; };
+		B1044 /* PageEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1045 /* PageEditorView.swift */; };
+		B1045 /* PhotosPickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1046 /* PhotosPickerSheet.swift */; };
+		B1046 /* DocumentPickerSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1047 /* DocumentPickerSheet.swift */; };
+		B1047 /* ImportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1048 /* ImportManager.swift */; };
+		B1048 /* ImportProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1049 /* ImportProgressView.swift */; };
+		B1049 /* GutterDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1050 /* GutterDetector.swift */; };
+		B1050 /* SpreadSplitterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1051 /* SpreadSplitterView.swift */; };
+		B1051 /* PDFStreamingWriter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1052 /* PDFStreamingWriter.swift */; };
+		B1052 /* PDFExportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1053 /* PDFExportManager.swift */; };
+		B1053 /* PDFPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1054 /* PDFPreviewView.swift */; };
+		B1054 /* ActivityShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1055 /* ActivityShareSheet.swift */; };
+		B1055 /* ExportDocumentPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1056 /* ExportDocumentPicker.swift */; };
+		B1056 /* ExportViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1057 /* ExportViewModel.swift */; };
+		B1057 /* ExportView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1058 /* ExportView.swift */; };
+		B1058 /* OCREngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1059 /* OCREngine.swift */; };
+		B1059 /* SessionRestorationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1060 /* SessionRestorationManager.swift */; };
+		B1060 /* StressTestManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1061 /* StressTestManager.swift */; };
+		B1061 /* StressTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1062 /* StressTestView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		A1000 /* BookScanPDF.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BookScanPDF.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F1001 /* BookScanPDFApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookScanPDFApp.swift; sourceTree = "<group>"; };
+		F1002 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		F1003 /* BookScanModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookScanModel.swift; sourceTree = "<group>"; };
+		F1004 /* ProjectEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProjectEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F1005 /* PageEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PageEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		F1006 /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
+		F1007 /* Enums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enums.swift; sourceTree = "<group>"; };
+		F1008 /* PageEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageEdit.swift; sourceTree = "<group>"; };
+		F1009 /* Project.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
+		F1010 /* Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Page.swift; sourceTree = "<group>"; };
+		F1011 /* DiskStorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiskStorageManager.swift; sourceTree = "<group>"; };
+		F1012 /* ImageDownsampler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDownsampler.swift; sourceTree = "<group>"; };
+		F1013 /* AppSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSettings.swift; sourceTree = "<group>"; };
+		F1014 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		F1015 /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
+		F1016 /* StatusBadge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBadge.swift; sourceTree = "<group>"; };
+		F1017 /* EmptyStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyStateView.swift; sourceTree = "<group>"; };
+		F1018 /* ShimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShimmerView.swift; sourceTree = "<group>"; };
+		F1019 /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		F1020 /* ProjectCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCardView.swift; sourceTree = "<group>"; };
+		F1021 /* NewScanActionSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewScanActionSheet.swift; sourceTree = "<group>"; };
+		F1022 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		F1023 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
+		F1024 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
+		F1025 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F1026 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F1027 /* MotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionManager.swift; sourceTree = "<group>"; };
+		F1028 /* PageDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageDetector.swift; sourceTree = "<group>"; };
+		F1029 /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
+		F1030 /* CameraPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPreviewView.swift; sourceTree = "<group>"; };
+		F1031 /* CameraOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraOverlayView.swift; sourceTree = "<group>"; };
+		F1032 /* CameraViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewModel.swift; sourceTree = "<group>"; };
+		F1033 /* CameraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraView.swift; sourceTree = "<group>"; };
+		F1034 /* CIContextHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CIContextHolder.swift; sourceTree = "<group>"; };
+		F1035 /* FilterEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterEngine.swift; sourceTree = "<group>"; };
+		F1036 /* ProcessingOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingOperation.swift; sourceTree = "<group>"; };
+		F1037 /* ProcessingQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProcessingQueue.swift; sourceTree = "<group>"; };
+		F1038 /* AutoApplyManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoApplyManager.swift; sourceTree = "<group>"; };
+		F1039 /* ReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewModel.swift; sourceTree = "<group>"; };
+		F1040 /* PageThumbnailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageThumbnailCell.swift; sourceTree = "<group>"; };
+		F1041 /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
+		F1042 /* CropLoupeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CropLoupeView.swift; sourceTree = "<group>"; };
+		F1043 /* InteractiveCropOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractiveCropOverlay.swift; sourceTree = "<group>"; };
+		F1044 /* PageEditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageEditorViewModel.swift; sourceTree = "<group>"; };
+		F1045 /* PageEditorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageEditorView.swift; sourceTree = "<group>"; };
+		F1046 /* PhotosPickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosPickerSheet.swift; sourceTree = "<group>"; };
+		F1047 /* DocumentPickerSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentPickerSheet.swift; sourceTree = "<group>"; };
+		F1048 /* ImportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportManager.swift; sourceTree = "<group>"; };
+		F1049 /* ImportProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportProgressView.swift; sourceTree = "<group>"; };
+		F1050 /* GutterDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GutterDetector.swift; sourceTree = "<group>"; };
+		F1051 /* SpreadSplitterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpreadSplitterView.swift; sourceTree = "<group>"; };
+		F1052 /* PDFStreamingWriter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFStreamingWriter.swift; sourceTree = "<group>"; };
+		F1053 /* PDFExportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFExportManager.swift; sourceTree = "<group>"; };
+		F1054 /* PDFPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PDFPreviewView.swift; sourceTree = "<group>"; };
+		F1055 /* ActivityShareSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityShareSheet.swift; sourceTree = "<group>"; };
+		F1056 /* ExportDocumentPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportDocumentPicker.swift; sourceTree = "<group>"; };
+		F1057 /* ExportViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportViewModel.swift; sourceTree = "<group>"; };
+		F1058 /* ExportView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportView.swift; sourceTree = "<group>"; };
+		F1059 /* OCREngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OCREngine.swift; sourceTree = "<group>"; };
+		F1060 /* SessionRestorationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionRestorationManager.swift; sourceTree = "<group>"; };
+		F1061 /* StressTestManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StressTestManager.swift; sourceTree = "<group>"; };
+		F1062 /* StressTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StressTestView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		P1000 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		G0001 = {
+			isa = PBXGroup;
+			children = (
+				G0002 /* BookScanPDF */,
+				G0003 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		G0002 /* BookScanPDF */ = {
+			isa = PBXGroup;
+			children = (
+				G0004 /* App */,
+				G0005 /* Models */,
+				G0006 /* Services */,
+				G0007 /* DesignSystem */,
+				G0008 /* Views */,
+				G0009 /* Resources */,
+			);
+			path = BookScanPDF;
+			sourceTree = "<group>";
+		};
+		G0003 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A1000 /* BookScanPDF.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		G0004 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				F1001 /* BookScanPDFApp.swift */,
+				F1002 /* AppDelegate.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		G0005 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F1003 /* BookScanModel.swift */,
+				F1004 /* ProjectEntity+CoreDataClass.swift */,
+				F1005 /* PageEntity+CoreDataClass.swift */,
+				F1006 /* DataController.swift */,
+				F1007 /* Enums.swift */,
+				F1008 /* PageEdit.swift */,
+				F1009 /* Project.swift */,
+				F1010 /* Page.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		G0006 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				F1011 /* DiskStorageManager.swift */,
+				F1012 /* ImageDownsampler.swift */,
+				F1013 /* AppSettings.swift */,
+				F1027 /* MotionManager.swift */,
+				F1028 /* PageDetector.swift */,
+				F1029 /* CameraManager.swift */,
+				F1034 /* CIContextHolder.swift */,
+				F1035 /* FilterEngine.swift */,
+				F1036 /* ProcessingOperation.swift */,
+				F1037 /* ProcessingQueue.swift */,
+				F1038 /* AutoApplyManager.swift */,
+				F1046 /* PhotosPickerSheet.swift */,
+				F1047 /* DocumentPickerSheet.swift */,
+				F1048 /* ImportManager.swift */,
+				F1050 /* GutterDetector.swift */,
+				F1052 /* PDFStreamingWriter.swift */,
+				F1053 /* PDFExportManager.swift */,
+				F1059 /* OCREngine.swift */,
+				F1060 /* SessionRestorationManager.swift */,
+				F1061 /* StressTestManager.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		G0007 /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				F1014 /* Theme.swift */,
+				F1015 /* PrimaryButton.swift */,
+				F1016 /* StatusBadge.swift */,
+				F1017 /* EmptyStateView.swift */,
+				F1018 /* ShimmerView.swift */,
+			);
+			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		G0008 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F1019 /* HomeViewModel.swift */,
+				F1020 /* ProjectCardView.swift */,
+				F1021 /* NewScanActionSheet.swift */,
+				F1022 /* HomeView.swift */,
+				F1023 /* OnboardingView.swift */,
+				F1024 /* SettingsView.swift */,
+				F1030 /* CameraPreviewView.swift */,
+				F1031 /* CameraOverlayView.swift */,
+				F1032 /* CameraViewModel.swift */,
+				F1033 /* CameraView.swift */,
+				F1039 /* ReviewViewModel.swift */,
+				F1040 /* PageThumbnailCell.swift */,
+				F1041 /* ReviewView.swift */,
+				F1042 /* CropLoupeView.swift */,
+				F1043 /* InteractiveCropOverlay.swift */,
+				F1044 /* PageEditorViewModel.swift */,
+				F1045 /* PageEditorView.swift */,
+				F1049 /* ImportProgressView.swift */,
+				F1051 /* SpreadSplitterView.swift */,
+				F1054 /* PDFPreviewView.swift */,
+				F1055 /* ActivityShareSheet.swift */,
+				F1056 /* ExportDocumentPicker.swift */,
+				F1057 /* ExportViewModel.swift */,
+				F1058 /* ExportView.swift */,
+				F1062 /* StressTestView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		G0009 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				F1025 /* Assets.xcassets */,
+				F1026 /* Info.plist */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		T1000 /* BookScanPDF */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C1000 /* Build configuration list for PBXNativeTarget "BookScanPDF" */;
+			buildPhases = (
+				S1000 /* Sources */,
+				P1000 /* Frameworks */,
+				R1000 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = BookScanPDF;
+			productName = BookScanPDF;
+			productReference = A1000 /* BookScanPDF.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		PR1000 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1400;
+				LastUpgradeCheck = 1400;
+				TargetAttributes = {
+					T1000 = {
+						CreatedOnToolsVersion = 14.0;
+					};
+				};
+			};
+			buildConfigurationList = CP1000 /* Build configuration list for PBXProject "BookScanPDF" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = G0001;
+			productRefGroup = G0003 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				T1000 /* BookScanPDF */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		R1000 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1025 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		S1000 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B1001 /* BookScanPDFApp.swift in Sources */,
+				B1002 /* AppDelegate.swift in Sources */,
+				B1003 /* BookScanModel.swift in Sources */,
+				B1004 /* ProjectEntity+CoreDataClass.swift in Sources */,
+				B1005 /* PageEntity+CoreDataClass.swift in Sources */,
+				B1006 /* DataController.swift in Sources */,
+				B1007 /* Enums.swift in Sources */,
+				B1008 /* PageEdit.swift in Sources */,
+				B1009 /* Project.swift in Sources */,
+				B1010 /* Page.swift in Sources */,
+				B1011 /* DiskStorageManager.swift in Sources */,
+				B1012 /* ImageDownsampler.swift in Sources */,
+				B1013 /* AppSettings.swift in Sources */,
+				B1014 /* Theme.swift in Sources */,
+				B1015 /* PrimaryButton.swift in Sources */,
+				B1016 /* StatusBadge.swift in Sources */,
+				B1017 /* EmptyStateView.swift in Sources */,
+				B1018 /* ShimmerView.swift in Sources */,
+				B1019 /* HomeViewModel.swift in Sources */,
+				B1020 /* ProjectCardView.swift in Sources */,
+				B1021 /* NewScanActionSheet.swift in Sources */,
+				B1022 /* HomeView.swift in Sources */,
+				B1023 /* OnboardingView.swift in Sources */,
+				B1024 /* SettingsView.swift in Sources */,
+				B1026 /* MotionManager.swift in Sources */,
+				B1027 /* PageDetector.swift in Sources */,
+				B1028 /* CameraManager.swift in Sources */,
+				B1029 /* CameraPreviewView.swift in Sources */,
+				B1030 /* CameraOverlayView.swift in Sources */,
+				B1031 /* CameraViewModel.swift in Sources */,
+				B1032 /* CameraView.swift in Sources */,
+				B1033 /* CIContextHolder.swift in Sources */,
+				B1034 /* FilterEngine.swift in Sources */,
+				B1035 /* ProcessingOperation.swift in Sources */,
+				B1036 /* ProcessingQueue.swift in Sources */,
+				B1037 /* AutoApplyManager.swift in Sources */,
+				B1038 /* ReviewViewModel.swift in Sources */,
+				B1039 /* PageThumbnailCell.swift in Sources */,
+				B1040 /* ReviewView.swift in Sources */,
+				B1041 /* CropLoupeView.swift in Sources */,
+				B1042 /* InteractiveCropOverlay.swift in Sources */,
+				B1043 /* PageEditorViewModel.swift in Sources */,
+				B1044 /* PageEditorView.swift in Sources */,
+				B1045 /* PhotosPickerSheet.swift in Sources */,
+				B1046 /* DocumentPickerSheet.swift in Sources */,
+				B1047 /* ImportManager.swift in Sources */,
+				B1048 /* ImportProgressView.swift in Sources */,
+				B1049 /* GutterDetector.swift in Sources */,
+				B1050 /* SpreadSplitterView.swift in Sources */,
+				B1051 /* PDFStreamingWriter.swift in Sources */,
+				B1052 /* PDFExportManager.swift in Sources */,
+				B1053 /* PDFPreviewView.swift in Sources */,
+				B1054 /* ActivityShareSheet.swift in Sources */,
+				B1055 /* ExportDocumentPicker.swift in Sources */,
+				B1056 /* ExportViewModel.swift in Sources */,
+				B1057 /* ExportView.swift in Sources */,
+				B1058 /* OCREngine.swift in Sources */,
+				B1059 /* SessionRestorationManager.swift in Sources */,
+				B1060 /* StressTestManager.swift in Sources */,
+				B1061 /* StressTestView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		BC001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDEFINED_VARIABLES = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		BC002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDEFINED_VARIABLES = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = "wholemodule";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		BC101 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = BookScanPDF/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bookscan.BookScanPDF;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		BC102 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = BookScanPDF/Resources/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bookscan.BookScanPDF;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		CP1000 /* Build configuration list for PBXProject "BookScanPDF" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC001 /* Debug */,
+				BC002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C1000 /* Build configuration list for PBXNativeTarget "BookScanPDF" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				BC101 /* Debug */,
+				BC102 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = PR1000 /* Project object */;
+}
