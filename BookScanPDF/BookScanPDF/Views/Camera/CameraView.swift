@@ -39,9 +39,12 @@ public struct CameraView: View {
                                 baseZoom = currentZoom
                             }
                     )
-                    .onTapGesture { location in
-                        viewModel.handleTapToFocus(at: location, viewSize: geometry.size)
-                    }
+                    .simultaneousGesture(
+                        DragGesture(minimumDistance: 0)
+                            .onEnded { value in
+                                viewModel.handleTapToFocus(at: value.location, viewSize: geometry.size)
+                            }
+                    )
                 
                 // MARK: - Live Indicator & Grid Overlay
                 CameraOverlayView(
