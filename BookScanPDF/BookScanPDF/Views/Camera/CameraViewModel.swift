@@ -53,6 +53,20 @@ public final class CameraViewModel: ObservableObject {
         cameraManager.delegate = self
         hapticFeedback.prepare()
         
+        // Initialize default flash from Settings
+        let defaultFlash = AppSettings.shared.flashDefault
+        switch defaultFlash {
+        case .auto:
+            cameraManager.flashMode = .auto
+            flashModeIcon = "bolt.badge.a.fill"
+        case .on:
+            cameraManager.flashMode = .on
+            flashModeIcon = "bolt.fill"
+        case .off:
+            cameraManager.flashMode = .off
+            flashModeIcon = "bolt.slash.fill"
+        }
+        
         motionManager.onMotionUpdate = { [weak self] pitch, roll, level in
             DispatchQueue.main.async {
                 self?.pitch = pitch

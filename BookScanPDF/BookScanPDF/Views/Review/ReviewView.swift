@@ -218,6 +218,11 @@ public struct ReviewView: View {
             .onAppear {
                 viewModel.fetchPages()
             }
+            .onChange(of: viewModel.isShowingSettings) { isShowing in
+                if !isShowing {
+                    viewModel.fetchPages()
+                }
+            }
         }
         .navigationViewStyle(StackNavigationViewStyle())
     }

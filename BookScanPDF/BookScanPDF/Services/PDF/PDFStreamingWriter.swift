@@ -9,6 +9,7 @@
 
 import Foundation
 import CoreGraphics
+import ImageIO
 
 public struct PDFPageMetadata {
     public let width: Int
@@ -26,13 +27,32 @@ public final class PDFStreamingWriter {
         self.destinationURL = destinationURL
     }
     
-    // MARK: - JPEG SOF Header Parser
+    // MARK: - JPEG Header Metadata Parser
     
-    /// Reads JPEG dimensions and channel count directly from SOF0/SOF2 markers without decoding pixel memory.
+    /// Reads exact JPEG dimensions and color space directly from the file header
+    /// without decoding pixel bitmaps into memory, ensuring zero memory spikes.
     public static func parseJPEGMetadata(data: Data) -> PDFPageMetadata? {
+        let options: [CFString: Any] = [
+            kCGImageSourceShouldCache: false
+        ]
+        guard let source = CGImageSourceCreateWithData(data as CFData, options as CFDictionary),
+              let properties = CGImageSourceCopyPropertiesAtIndex(source, 0, options as CFDictionary) as? [CFString: Any] else {
+            // Fallback manual SOF marker check if CGImageSource fails
+            return fallbackParseSOF(data: data)
+        }
+        
+        let width = properties[kCGImagePropertyPixelWidth] as? Int ?? 1500
+        let height = properties[kCGImagePropertyPixelHeight] as? Int ?? 2000
+        let colorModel = properties[kCGImagePropertyColorModel] as? String
+        let isGray = (colorModel == (kCGImagePropertyColorModelGray as String))
+        
+        return PDFPageMetadata(width: width, height: height, isGrayscale: isGray)
+    }
+    
+    private static func fallbackParseSOF(data: Data) -> PDFPageMetadata? {
         var index = 0
         let count = data.count
-        guard count > 4, data[0] == 0xFF, data[1] == 0xD8 else { return nil } // SOI check
+        guard count > 4, data[0] == 0xFF, data[1] == 0xD8 else { return nil }
         index += 2
         
         while index < count - 8 {
@@ -41,17 +61,15 @@ public final class PDFStreamingWriter {
                 continue
             }
             let marker = data[index + 1]
-            
-            // SOF0 (Baseline) or SOF2 (Progressive)
-            if marker == 0xC0 || marker == 0xC2 {
+            if marker == 0xC0 || marker == 0xC1 || marker == 0xC2 {
                 let height = Int(data[index + 5]) << 8 | Int(data[index + 6])
                 let width = Int(data[index + 7]) << 8 | Int(data[index + 8])
                 let components = Int(data[index + 9])
                 return PDFPageMetadata(width: width, height: height, isGrayscale: components == 1)
             }
-            
-            // Skip marker segment
+            if marker == 0xDA || marker == 0xD9 { break } // Stop at SOS/EOI
             let segmentLength = Int(data[index + 2]) << 8 | Int(data[index + 3])
+            guard segmentLength >= 2 else { break }
             index += 2 + segmentLength
         }
         return nil
@@ -75,8 +93,12 @@ public final class PDFStreamingWriter {
         
         let totalPages = pageURLs.count
         
-        // 1. PDF Header
-        try writeString("%PDF-1.4\n%\u{00E2}\u{00E3}\u{00CF}\u{00D3}\n")
+        // 1. PDF Header: %PDF-1.4 followed by binary comment marker (> 127)
+        let headerBytes: [UInt8] = [
+            0x25, 0x50, 0x44, 0x46, 0x2D, 0x31, 0x2E, 0x34, 0x0A, // %PDF-1.4\n
+            0x25, 0xE2, 0xE3, 0xCF, 0xD3, 0x0A                   // %âãÏÓ\n (binary comment)
+        ]
+        try writeData(Data(headerBytes))
         
         // Object IDs reservation:
         // Object 1: Catalog
@@ -86,7 +108,6 @@ public final class PDFStreamingWriter {
         //   Object (4 + (i-1)*3): Content Stream
         //   Object (5 + (i-1)*3): Image XObject
         
-        // Placeholder for Catalog and Pages tree
         recordObjectOffset(objectNumber: 1)
         try writeString("1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n")
         
@@ -181,11 +202,11 @@ public final class PDFStreamingWriter {
         let startXref = currentOffset
         let totalObjects = 2 + totalPages * 3
         try writeString("xref\n0 \(totalObjects + 1)\n")
-        try writeString("0000000000 65535 f \n")
+        try writeString("0000000000 65535 f \r\n")
         
         for i in 1...totalObjects {
             let offset = objectOffsets[i]
-            let offsetFormatted = String(format: "%010llu 00000 n \n", offset)
+            let offsetFormatted = String(format: "%010llu 00000 n \r\n", offset)
             try writeString(offsetFormatted)
         }
         
@@ -245,7 +266,7 @@ public final class PDFStreamingWriter {
     }
     
     private func writeString(_ string: String) throws {
-        guard let data = string.data(using: .ascii) else { return }
+        guard let data = string.data(using: .utf8) else { return }
         try writeData(data)
     }
     

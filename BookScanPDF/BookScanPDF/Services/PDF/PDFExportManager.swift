@@ -66,8 +66,16 @@ public final class PDFExportManager: ObservableObject {
                 }
                 
                 let pageFilePaths: [URL] = entities.compactMap { entity in
-                    let path = entity.processedPath ?? entity.originalPath
-                    return URL(fileURLWithPath: path)
+                    if let proc = entity.processedPath, FileManager.default.fileExists(atPath: proc) {
+                        return URL(fileURLWithPath: proc)
+                    } else if FileManager.default.fileExists(atPath: entity.originalPath) {
+                        return URL(fileURLWithPath: entity.originalPath)
+                    }
+                    return nil
+                }
+                
+                guard !pageFilePaths.isEmpty else {
+                    throw NSError(domain: "com.bookscan.pdf", code: -1, userInfo: [NSLocalizedDescriptionKey: "No valid image files found on disk for this project."])
                 }
                 
                 await MainActor.run {
@@ -98,8 +106,11 @@ public final class PDFExportManager: ObservableObject {
                 }
                 
                 // 4. Integrity Verification: Confirm PDF validity using PDFKit
-                guard let verifiedPDF = PDFDocument(url: destinationURL), verifiedPDF.pageCount == pageFilePaths.count else {
-                    throw NSError(domain: "com.bookscan.pdf", code: -2, userInfo: [NSLocalizedDescriptionKey: "PDF integrity validation failed: generated page count mismatch."])
+                guard let verifiedPDF = PDFDocument(url: destinationURL) else {
+                    throw NSError(domain: "com.bookscan.pdf", code: -2, userInfo: [NSLocalizedDescriptionKey: "Failed to open generated PDF document."])
+                }
+                guard verifiedPDF.pageCount == pageFilePaths.count else {
+                    throw NSError(domain: "com.bookscan.pdf", code: -2, userInfo: [NSLocalizedDescriptionKey: "PDF integrity validation failed: generated \(verifiedPDF.pageCount) pages, expected \(pageFilePaths.count)."])
                 }
                 
                 // 5. Calculate file size & finalize

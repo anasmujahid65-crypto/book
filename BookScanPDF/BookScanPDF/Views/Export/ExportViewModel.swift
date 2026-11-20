@@ -30,9 +30,9 @@ public final class ExportViewModel: ObservableObject {
     public init(project: Project) {
         self.project = project
         self.filename = project.name
-        self.selectedPreset = project.pdfPreset
-        self.selectedPageSize = project.pageSize
-        self.ocrEnabled = project.ocrEnabled || AppSettings.shared.ocrEnabledDefault
+        self.selectedPreset = AppSettings.shared.defaultPDFPreset
+        self.selectedPageSize = AppSettings.shared.defaultPageSize
+        self.ocrEnabled = AppSettings.shared.ocrEnabledDefault || project.ocrEnabled
         self.exportTotalPages = project.pageCount
     }
     

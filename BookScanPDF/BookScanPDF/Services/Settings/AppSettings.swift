@@ -7,6 +7,7 @@
 
 import Foundation
 import SwiftUI
+import CoreData
 
 public enum FlashModeSetting: String, CaseIterable, Identifiable {
     case off = "off"
@@ -215,5 +216,31 @@ public final class AppSettings: ObservableObject {
         self.themeMode = AppThemeMode(rawValue: themeRaw) ?? .system
         
         self.deleteOriginalsAfterExport = defaults.bool(forKey: "deleteOriginalsAfterExport")
+    }
+    
+    /// Re-applies the default filter to any pages that haven't been manually customized by the user.
+    @discardableResult
+    public func applyDefaultFilterToUnmodifiedPages() -> Int {
+        let bgContext = DataController.shared.newBackgroundContext()
+        var updatedCount = 0
+        bgContext.performAndWait {
+            let request: NSFetchRequest<PageEntity> = PageEntity.fetchRequest()
+            if let entities = try? bgContext.fetch(request) {
+                for entity in entities {
+                    var edit = PageEdit.decode(from: entity.editData)
+                    if !edit.isUserModified {
+                        edit.filter = self.defaultFilter
+                        entity.editData = edit.encodeToData()
+                        entity.status = PageStatus.pending.rawValue
+                        if let pid = entity.projectId {
+                            ProcessingQueue.shared.enqueue(pageId: entity.id, projectId: pid, isPriority: true)
+                        }
+                        updatedCount += 1
+                    }
+                }
+                DataController.shared.save(context: bgContext)
+            }
+        }
+        return updatedCount
     }
 }

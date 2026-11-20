@@ -16,6 +16,8 @@ public struct SettingsView: View {
     @State private var isClearingCache: Bool = false
     @State private var showCacheClearedAlert: Bool = false
     @State private var showStressTest: Bool = false
+    @State private var showFilterAppliedAlert: Bool = false
+    @State private var filterAppliedMessage: String = ""
     
     public init() {}
     
@@ -86,6 +88,19 @@ public struct SettingsView: View {
                     Picker("Performance Profile", selection: $settings.performanceMode) {
                         ForEach(PerformanceMode.allCases) { mode in
                             Text(mode.displayName).tag(mode)
+                        }
+                    }
+                    
+                    Button(action: {
+                        let count = settings.applyDefaultFilterToUnmodifiedPages()
+                        filterAppliedMessage = "Applied \(settings.defaultFilter.displayName) to \(count) page(s)"
+                        showFilterAppliedAlert = true
+                    }) {
+                        HStack {
+                            Image(systemName: "wand.and.stars")
+                                .foregroundColor(Theme.accent)
+                            Text("Apply Default Filter to Existing Scans")
+                                .foregroundColor(Theme.accent)
                         }
                     }
                 }
@@ -194,6 +209,11 @@ public struct SettingsView: View {
                 Button("OK", role: .cancel) {}
             } message: {
                 Text("Temporary cache files have been freed.")
+            }
+            .alert("Filter Applied", isPresented: $showFilterAppliedAlert) {
+                Button("OK", role: .cancel) {}
+            } message: {
+                Text(filterAppliedMessage)
             }
             .sheet(isPresented: $showStressTest) {
                 StressTestView()

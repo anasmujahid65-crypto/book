@@ -42,14 +42,14 @@ public struct PageEdit: Codable, Equatable {
     public var isUserModified: Bool
     
     public init(cropCorners: NormalizedQuad? = nil,
-                filter: FilterType = .blackAndWhite,
+                filter: FilterType? = nil,
                 rotationDegrees: Int = 0,
                 fineStraightenAngle: Double = 0.0,
                 brightness: Float = 0.0,
                 contrast: Float = 1.0,
                 isUserModified: Bool = false) {
         self.cropCorners = cropCorners
-        self.filter = filter
+        self.filter = filter ?? AppSettings.shared.defaultFilter
         self.rotationDegrees = rotationDegrees
         self.fineStraightenAngle = fineStraightenAngle
         self.brightness = brightness
@@ -58,7 +58,15 @@ public struct PageEdit: Codable, Equatable {
     }
     
     public static var `default`: PageEdit {
-        return PageEdit()
+        return PageEdit(
+            cropCorners: nil,
+            filter: AppSettings.shared.defaultFilter,
+            rotationDegrees: 0,
+            fineStraightenAngle: 0.0,
+            brightness: 0.0,
+            contrast: 1.0,
+            isUserModified: false
+        )
     }
     
     public func encodeToData() -> Data? {
