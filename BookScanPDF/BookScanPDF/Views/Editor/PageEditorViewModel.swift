@@ -19,6 +19,7 @@ public final class PageEditorViewModel: ObservableObject {
     
     // Original image data
     @Published public var rawOriginalImage: UIImage?
+    @Published public var displayedCropImage: UIImage?
     @Published public var workingPreviewImage: UIImage?
     
     // Interactive Edit Parameters
@@ -32,8 +33,8 @@ public final class PageEditorViewModel: ObservableObject {
     // Tools UI State
     @Published public var isCropActive: Bool = false
     @Published public var showLoupe: Bool = false
-    @Published public var loupePosition: CGPoint = .zero
-    @Published public var loupeFocusPoint: CGPoint = .zero
+    @Published public var loupeTouchPoint: CGPoint = .zero
+    @Published public var loupeViewSize: CGSize = .zero
     
     @Published public var isSaving: Bool = false
     @Published public var promptCascadePage1: Bool = false
@@ -64,8 +65,26 @@ public final class PageEditorViewModel: ObservableObject {
             
             DispatchQueue.main.async {
                 self.rawOriginalImage = image
+                self.updateDisplayedCropImage()
                 self.updateLivePreview()
             }
+        }
+    }
+    
+    public func updateDisplayedCropImage() {
+        guard let raw = rawOriginalImage, let cgImage = raw.cgImage else { return }
+        var current = CIImage(cgImage: cgImage)
+        if rotationDegrees != 0 {
+            current = filterEngine.applyRotation(image: current, degrees: rotationDegrees)
+        }
+        if abs(fineStraighten) > 0.01 {
+            current = filterEngine.applyStraighten(image: current, angleDegrees: fineStraighten)
+        }
+        let context = CIContextHolder.shared.context
+        if let outCG = context.createCGImage(current, from: current.extent) {
+            self.displayedCropImage = UIImage(cgImage: outCG)
+        } else {
+            self.displayedCropImage = raw
         }
     }
     
@@ -107,6 +126,25 @@ public final class PageEditorViewModel: ObservableObject {
     
     public func rotateClockwise() {
         rotationDegrees = (rotationDegrees + 90) % 360
+        
+        // Rotate the crop quad so it stays aligned with the clockwise rotated image
+        let oldTL = cropQuad.topLeft
+        let oldTR = cropQuad.topRight
+        let oldBR = cropQuad.bottomRight
+        let oldBL = cropQuad.bottomLeft
+        
+        func rotatePoint(_ p: CGPoint) -> CGPoint {
+            return CGPoint(x: p.y, y: 1.0 - p.x)
+        }
+        
+        cropQuad = NormalizedQuad(
+            topLeft: rotatePoint(oldBL),
+            topRight: rotatePoint(oldTL),
+            bottomRight: rotatePoint(oldTR),
+            bottomLeft: rotatePoint(oldBR)
+        )
+        
+        updateDisplayedCropImage()
         updateLivePreview()
     }
     
@@ -139,12 +177,8 @@ public final class PageEditorViewModel: ObservableObject {
     
     public func updateLoupe(corner: ActiveCorner, touchLocation: CGPoint, viewSize: CGSize) {
         self.showLoupe = true
-        self.loupePosition = touchLocation
-        
-        // Calculate offset for focus within the magnifier
-        let normX = touchLocation.x / viewSize.width - 0.5
-        let normY = touchLocation.y / viewSize.height - 0.5
-        self.loupeFocusPoint = CGPoint(x: normX * 100, y: normY * 100)
+        self.loupeTouchPoint = touchLocation
+        self.loupeViewSize = viewSize
     }
     
     public func hideLoupe() {

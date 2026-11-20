@@ -62,18 +62,18 @@ public enum PDFPreset: String, CaseIterable, Codable, Identifiable {
     public var targetLongSide: CGFloat {
         switch self {
         case .original: return 0 // unconstrained
-        case .high: return 2400
-        case .balanced: return 2000
-        case .small: return 1500
+        case .high: return 3200
+        case .balanced: return 2600
+        case .small: return 1800
         }
     }
     
     public var compressionQuality: CGFloat {
         switch self {
-        case .original: return 0.95
-        case .high: return 0.90
-        case .balanced: return 0.82
-        case .small: return 0.65
+        case .original: return 0.96
+        case .high: return 0.92
+        case .balanced: return 0.88
+        case .small: return 0.75
         }
     }
     

@@ -18,6 +18,7 @@ public struct PageThumbnailCell: View {
     public let onRetry: () -> Void
     public let onRetake: () -> Void
     public let onSplitSpread: () -> Void
+    public let onReorder: () -> Void
     
     @State private var thumbnailImage: UIImage? = nil
     
@@ -29,7 +30,8 @@ public struct PageThumbnailCell: View {
                 onDelete: @escaping () -> Void,
                 onRetry: @escaping () -> Void,
                 onRetake: @escaping () -> Void,
-                onSplitSpread: @escaping () -> Void) {
+                onSplitSpread: @escaping () -> Void,
+                onReorder: @escaping () -> Void) {
         self.page = page
         self.isSelected = isSelected
         self.isSelectMode = isSelectMode
@@ -39,6 +41,7 @@ public struct PageThumbnailCell: View {
         self.onRetry = onRetry
         self.onRetake = onRetake
         self.onSplitSpread = onSplitSpread
+        self.onReorder = onReorder
     }
     
     public var body: some View {
@@ -125,6 +128,9 @@ public struct PageThumbnailCell: View {
         .contextMenu {
             Button(action: onTap) {
                 Label("Edit Page", systemImage: "slider.horizontal.3")
+            }
+            Button(action: onReorder) {
+                Label("Move to Page #...", systemImage: "arrow.up.arrow.down")
             }
             Button(action: onSplitSpread) {
                 Label("Split Two-Page Spread", systemImage: "arrow.triangle.split")

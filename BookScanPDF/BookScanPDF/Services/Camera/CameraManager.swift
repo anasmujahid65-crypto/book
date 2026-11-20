@@ -75,9 +75,9 @@ public final class CameraManager: NSObject {
         session.beginConfiguration()
         session.sessionPreset = .photo
         
-        // Discover camera device (Prefer dual camera on iPhone 7 Plus if available)
+        // Discover camera device (Default to standard 1x wide angle lens matching native Camera app)
         let deviceDiscoverySession = AVCaptureDevice.DiscoverySession(
-            deviceTypes: [.builtInDualCamera, .builtInWideAngleCamera],
+            deviceTypes: [.builtInWideAngleCamera, .builtInDualCamera],
             mediaType: .video,
             position: .back
         )
@@ -89,17 +89,21 @@ public final class CameraManager: NSObject {
         }
         
         do {
+            try camera.lockForConfiguration()
+            camera.videoZoomFactor = 1.0
+            camera.unlockForConfiguration()
+            
             let input = try AVCaptureDeviceInput(device: camera)
             if session.canAddInput(input) {
                 session.addInput(input)
                 self.videoDeviceInput = input
             }
             
-            // Setup Photo Output (Speed prioritized for rapid series shots)
+            // Setup Photo Output with full native sensor resolution
             if session.canAddOutput(photoOutput) {
                 session.addOutput(photoOutput)
                 photoOutput.isHighResolutionCaptureEnabled = true
-                photoOutput.maxPhotoQualityPrioritization = .speed
+                photoOutput.maxPhotoQualityPrioritization = .balanced
             }
             
             // Setup Video Data Output for Page Detection
@@ -131,7 +135,8 @@ public final class CameraManager: NSObject {
         sessionQueue.async { [weak self] in
             guard let self = self else { return }
             let photoSettings = AVCapturePhotoSettings(format: [AVVideoCodecKey: AVVideoCodecType.jpeg])
-            photoSettings.photoQualityPrioritization = .speed
+            photoSettings.isHighResolutionPhotoEnabled = true
+            photoSettings.photoQualityPrioritization = .balanced
             
             if self.videoDeviceInput?.device.isFlashAvailable == true {
                 photoSettings.flashMode = self.isTorchOn ? .off : self.currentFlashMode

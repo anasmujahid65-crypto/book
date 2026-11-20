@@ -66,8 +66,14 @@ public final class ProcessingOperation: Operation {
         do {
             let originalURL = URL(fileURLWithPath: page.originalPath)
             
-            // 1. Downsample original image to working resolution (~2200 px max long side)
-            let workingLongSide: CGFloat = projectPreset == .original ? 3000 : 2200
+            // 1. Downsample original image to target working resolution preserving sharpness
+            let workingLongSide: CGFloat
+            switch projectPreset {
+            case .original: workingLongSide = 4032
+            case .high: workingLongSide = 3200
+            case .balanced: workingLongSide = 2600
+            case .small: workingLongSide = 1800
+            }
             guard let workingImage = ImageDownsampler.downsample(imageAt: originalURL, maxDimension: workingLongSide),
                   let workingCGImage = workingImage.cgImage else {
                 markPageFailed(pageId: pageId)

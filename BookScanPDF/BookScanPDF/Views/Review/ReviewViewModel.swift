@@ -31,6 +31,10 @@ public final class ReviewViewModel: ObservableObject {
     @Published public var isShowingRenameAlert: Bool = false
     @Published public var renameText: String = ""
     
+    @Published public var isShowingReorderPrompt: Bool = false
+    @Published public var pageToReorder: Page? = nil
+    @Published public var targetPageInput: String = ""
+    
     @Published public var showBatchApplyAlert: Bool = false
     @Published public var toastMessage: String? = nil
     
@@ -124,6 +128,29 @@ public final class ReviewViewModel: ObservableObject {
         }
         
         fetchPages()
+    }
+    
+    public func promptReorder(for page: Page) {
+        self.pageToReorder = page
+        self.targetPageInput = "\(page.orderIndex + 1)"
+        self.isShowingReorderPrompt = true
+    }
+    
+    public func executeReorder() {
+        guard let page = pageToReorder,
+              let targetNumber = Int(targetPageInput.trimmingCharacters(in: .whitespacesAndNewlines)) else {
+            self.pageToReorder = nil
+            return
+        }
+        let clampedTarget = max(1, min(pages.count, targetNumber))
+        let sourceIndex = page.orderIndex
+        let destinationIndex = clampedTarget - 1
+        
+        if sourceIndex != destinationIndex {
+            movePage(from: sourceIndex, to: destinationIndex)
+            showToast("Moved Page \(sourceIndex + 1) → Page \(destinationIndex + 1)")
+        }
+        self.pageToReorder = nil
     }
     
     // MARK: - Deletion

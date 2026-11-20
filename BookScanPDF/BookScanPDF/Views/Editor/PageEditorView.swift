@@ -59,9 +59,9 @@ public struct PageEditorView: View {
                     
                     // MARK: - Interactive Image Canvas
                     ZStack {
-                        if activeTab == .crop, let raw = viewModel.rawOriginalImage {
-                            // Raw image with interactive crop overlay
-                            Image(uiImage: raw)
+                        if activeTab == .crop, let imageToCrop = viewModel.displayedCropImage ?? viewModel.rawOriginalImage {
+                            // Rotated/aligned image with interactive crop overlay
+                            Image(uiImage: imageToCrop)
                                 .resizable()
                                 .scaledToFit()
                                 .overlay(
@@ -88,9 +88,9 @@ public struct PageEditorView: View {
                             // Magnifier Loupe Overlay
                             if viewModel.showLoupe {
                                 CropLoupeView(
-                                    image: raw,
-                                    focusPoint: viewModel.loupeFocusPoint,
-                                    loupePosition: viewModel.loupePosition
+                                    image: imageToCrop,
+                                    touchPoint: viewModel.loupeTouchPoint,
+                                    viewSize: viewModel.loupeViewSize
                                 )
                             }
                         } else if let preview = viewModel.workingPreviewImage {
@@ -123,7 +123,10 @@ public struct PageEditorView: View {
                                 onRotate: { viewModel.rotateClockwise() },
                                 onAutoDetect: { viewModel.autoDetectCorners() },
                                 onReset: { viewModel.resetCorners() },
-                                onSliderChanged: { viewModel.updateLivePreview() }
+                                onSliderChanged: {
+                                    viewModel.updateDisplayedCropImage()
+                                    viewModel.updateLivePreview()
+                                }
                             )
                         case .filter:
                             FilterSelectorView(

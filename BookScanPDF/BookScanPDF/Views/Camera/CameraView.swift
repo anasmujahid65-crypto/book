@@ -22,39 +22,45 @@ public struct CameraView: View {
     
     public var body: some View {
         GeometryReader { geometry in
+            let previewWidth = min(geometry.size.width, geometry.size.height * (3.0 / 4.0))
+            let previewHeight = previewWidth * (4.0 / 3.0)
+            
             ZStack {
                 Color.black.ignoresSafeArea()
                 
-                // MARK: - Live AVFoundation Camera Preview
-                CameraPreviewView(session: viewModel.cameraManager.session)
-                    .ignoresSafeArea()
-                    .gesture(
-                        MagnificationGesture()
-                            .onChanged { value in
-                                let newZoom = baseZoom * value
-                                currentZoom = max(1.0, min(newZoom, 5.0))
-                                viewModel.handlePinchZoom(scale: currentZoom)
-                            }
-                            .onEnded { _ in
-                                baseZoom = currentZoom
-                            }
+                // MARK: - Native 4:3 Viewfinder (Matching Default Apple Camera App)
+                ZStack {
+                    CameraPreviewView(session: viewModel.cameraManager.session)
+                        .gesture(
+                            MagnificationGesture()
+                                .onChanged { value in
+                                    let newZoom = baseZoom * value
+                                    currentZoom = max(1.0, min(newZoom, 5.0))
+                                    viewModel.handlePinchZoom(scale: currentZoom)
+                                }
+                                .onEnded { _ in
+                                    baseZoom = currentZoom
+                                }
+                        )
+                        .simultaneousGesture(
+                            DragGesture(minimumDistance: 0)
+                                .onEnded { value in
+                                    viewModel.handleTapToFocus(at: value.location, viewSize: CGSize(width: previewWidth, height: previewHeight))
+                                }
+                        )
+                    
+                    // MARK: - Live Indicator & Grid Overlay (Locked 1:1 to 4:3 Sensor)
+                    CameraOverlayView(
+                        indicatorState: viewModel.indicatorState,
+                        showGrid: viewModel.showGrid,
+                        pitch: viewModel.pitch,
+                        roll: viewModel.roll,
+                        isLevel: viewModel.isDeviceLevel,
+                        focusPoint: viewModel.focusPoint
                     )
-                    .simultaneousGesture(
-                        DragGesture(minimumDistance: 0)
-                            .onEnded { value in
-                                viewModel.handleTapToFocus(at: value.location, viewSize: geometry.size)
-                            }
-                    )
-                
-                // MARK: - Live Indicator & Grid Overlay
-                CameraOverlayView(
-                    indicatorState: viewModel.indicatorState,
-                    showGrid: viewModel.showGrid,
-                    pitch: viewModel.pitch,
-                    roll: viewModel.roll,
-                    isLevel: viewModel.isDeviceLevel,
-                    focusPoint: viewModel.focusPoint
-                )
+                }
+                .frame(width: previewWidth, height: previewHeight)
+                .clipped()
                 
                 // MARK: - Shutter Flash Animation
                 if viewModel.showShutterFlash {

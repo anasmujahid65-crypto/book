@@ -103,6 +103,13 @@ public final class FilterEngine {
     public func applyFilter(image: CIImage, filter: FilterType) -> CIImage {
         switch filter {
         case .original:
+            // Apply subtle edge clarity so scanned text isn't soft
+            if let unsharp = CIFilter(name: "CIUnsharpMask") {
+                unsharp.setValue(image, forKey: kCIInputImageKey)
+                unsharp.setValue(1.5, forKey: kCIInputRadiusKey)
+                unsharp.setValue(0.30, forKey: kCIInputIntensityKey)
+                return unsharp.outputImage ?? image
+            }
             return image
             
         case .enhanced:
@@ -198,6 +205,14 @@ public final class FilterEngine {
         guard currentLongSide > maxLongSide else { return image }
         
         let scale = maxLongSide / currentLongSide
+        if let lanczos = CIFilter(name: "CILanczosScaleTransform") {
+            lanczos.setValue(image, forKey: kCIInputImageKey)
+            lanczos.setValue(scale, forKey: kCIInputScaleKey)
+            lanczos.setValue(1.0, forKey: kCIInputAspectRatioKey)
+            if let output = lanczos.outputImage {
+                return output
+            }
+        }
         return image.transformed(by: CGAffineTransform(scaleX: scale, y: scale))
     }
 }

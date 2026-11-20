@@ -11,6 +11,7 @@ import SwiftUI
 public struct ReviewView: View {
     @StateObject private var viewModel: ReviewViewModel
     @Environment(\.presentationMode) var presentationMode
+    @State private var draggedPage: Page? = nil
     
     // Adaptive multi-column grid
     private let columns = [
@@ -74,8 +75,16 @@ public struct ReviewView: View {
                                         },
                                         onSplitSpread: {
                                             viewModel.selectedPageForSpreadSplit = page
+                                        },
+                                        onReorder: {
+                                            viewModel.promptReorder(for: page)
                                         }
                                     )
+                                    .onDrag {
+                                        self.draggedPage = page
+                                        return NSItemProvider(object: page.id.uuidString as NSString)
+                                    }
+                                    .onDrop(of: ["public.text", "public.plain-text"], delegate: PageDropDelegate(item: page, viewModel: viewModel, draggedItem: $draggedPage))
                                 }
                             }
                             .padding(.horizontal, Theme.spacingM)
@@ -91,6 +100,12 @@ public struct ReviewView: View {
                         selectedCount: viewModel.selectedPageIds.count,
                         onRotate: { viewModel.batchRotateSelected() },
                         onFilter: { filter in viewModel.batchApplyFilter(filter) },
+                        onReorder: {
+                            if let firstId = viewModel.selectedPageIds.first,
+                               let p = viewModel.pages.first(where: { $0.id == firstId }) {
+                                viewModel.promptReorder(for: p)
+                            }
+                        },
                         onApplyPage1: { viewModel.applyPage1SettingsToAll() },
                         onDelete: { viewModel.deleteSelectedPages() }
                     )
@@ -215,6 +230,22 @@ public struct ReviewView: View {
                     viewModel.commitRename()
                 }
             }
+            .alert("Move Page to Position", isPresented: $viewModel.isShowingReorderPrompt) {
+                TextField("Target Page # (1-\(viewModel.pages.count))", text: $viewModel.targetPageInput)
+                    .keyboardType(.numberPad)
+                Button("Cancel", role: .cancel) {
+                    viewModel.pageToReorder = nil
+                }
+                Button("Move") {
+                    viewModel.executeReorder()
+                }
+            } message: {
+                if let p = viewModel.pageToReorder {
+                    Text("Moving Page \(p.orderIndex + 1). Enter destination page number (1 to \(viewModel.pages.count)). Existing pages shift by +1.")
+                } else {
+                    Text("Enter destination page number (1 to \(viewModel.pages.count)).")
+                }
+            }
             .onAppear {
                 viewModel.fetchPages()
             }
@@ -286,6 +317,7 @@ private struct BatchActionBar: View {
     let selectedCount: Int
     let onRotate: () -> Void
     let onFilter: (FilterType) -> Void
+    let onReorder: () -> Void
     let onApplyPage1: () -> Void
     let onDelete: () -> Void
     
@@ -296,6 +328,12 @@ private struct BatchActionBar: View {
                 .foregroundColor(Theme.label)
             
             Spacer()
+            
+            Button(action: onReorder) {
+                Image(systemName: "arrow.up.arrow.down")
+                    .font(.system(size: 18))
+                    .foregroundColor(Theme.label)
+            }
             
             Button(action: onRotate) {
                 Image(systemName: "rotate.right")
@@ -354,5 +392,28 @@ private struct ToastPill: View {
         .padding(.vertical, 8)
         .background(Color.black.opacity(0.85))
         .clipShape(Capsule())
+    }
+}
+
+// MARK: - Page Drag & Drop Reorder Delegate
+private struct PageDropDelegate: DropDelegate {
+    let item: Page
+    let viewModel: ReviewViewModel
+    @Binding var draggedItem: Page?
+    
+    func dropEntered(info: DropInfo) {
+        guard let dragged = draggedItem,
+              dragged.id != item.id,
+              let from = viewModel.pages.firstIndex(where: { $0.id == dragged.id }),
+              let to = viewModel.pages.firstIndex(where: { $0.id == item.id }) else { return }
+        
+        withAnimation(.easeInOut(duration: 0.2)) {
+            viewModel.movePage(from: from, to: to)
+        }
+    }
+    
+    func performDrop(info: DropInfo) -> Bool {
+        draggedItem = nil
+        return true
     }
 }
