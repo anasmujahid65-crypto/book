@@ -57,13 +57,13 @@ public final class CameraViewModel: ObservableObject {
         let defaultFlash = AppSettings.shared.flashDefault
         switch defaultFlash {
         case .auto:
-            cameraManager.flashMode = .auto
+            cameraManager.currentFlashMode = .auto
             flashModeIcon = "bolt.badge.a.fill"
         case .on:
-            cameraManager.flashMode = .on
+            cameraManager.currentFlashMode = .on
             flashModeIcon = "bolt.fill"
         case .off:
-            cameraManager.flashMode = .off
+            cameraManager.currentFlashMode = .off
             flashModeIcon = "bolt.slash.fill"
         }
         

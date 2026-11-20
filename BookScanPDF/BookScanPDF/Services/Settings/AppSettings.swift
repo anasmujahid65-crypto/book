@@ -232,9 +232,8 @@ public final class AppSettings: ObservableObject {
                         edit.filter = self.defaultFilter
                         entity.editData = edit.encodeToData()
                         entity.status = PageStatus.pending.rawValue
-                        if let pid = entity.projectId {
-                            ProcessingQueue.shared.enqueue(pageId: entity.id, projectId: pid, isPriority: true)
-                        }
+                        let pid = entity.projectId
+                        ProcessingQueue.shared.enqueue(pageId: entity.id, projectId: pid, isPriority: true)
                         updatedCount += 1
                     }
                 }
